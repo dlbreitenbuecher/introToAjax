@@ -9,15 +9,32 @@
     // console.log the response data
 
 console.log("Let's get this party started!");
-console.log($('#searchTerm').val());
+console.log($('#searchTerm').html());
 
 
-async function getGiff(){
-    let $searchTerm = $('#searchBar').val();
+async function getGif(evt){
+    evt.preventDefault();
+    let $searchTerm = $('#searchTerm').val();
     console.log($searchTerm);
     let response = await axios.get(`http://api.giphy.com/v1/gifs/search?q=${$searchTerm}&api_key=r3OVinr80Qlphab877hyZg3MBHZmYCiZ&limit=1`);
+    
+    console.log('Response from Giphy API', response.data.data[0].images.original.url); 
+    let originalGif =  response.data.data[0].images.original.url; 
 
-    console.log('Response from Giphy API', response);
+    placeGif(originalGif);
 }
 
-$('#searchButton').on('submit', getGiff);
+function placeGif(url) {
+    // given url of image
+    // create new element that use url are src for img
+    // appead that img to gifContainer
+    // console.log($("<img>").attr("src", url).get(0))
+    let $newGif = $("<img>").attr("src", url)
+    $("#gifContainer")
+        .prepend($newGif)    
+
+}
+
+
+$('form').on('submit', getGif);
+
