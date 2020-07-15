@@ -9,7 +9,7 @@
     // console.log the response data
 
 console.log("Let's get this party started!");
-console.log($('#searchTerm').text());
+console.log($('#searchTerm').val());
 
 
 async function getGiff(){
